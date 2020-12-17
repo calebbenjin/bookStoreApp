@@ -5,8 +5,10 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts')
+
 // Routes
-const Routes = require('./routes/index')
+const indexRoutes = require('./routes/index')
+const authorsRoutes = require('./routes/authors')
 
 // Setup view engines
 app.set('view engine', 'ejs')
@@ -27,6 +29,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to mongoose'))
 
 // Routes
-app.use('/', Routes)
+app.use('/', indexRoutes)
+app.use('/authors', authorsRoutes)
 
 app.listen(process.env.PORT || 5000)
